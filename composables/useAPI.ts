@@ -9,8 +9,10 @@ export function useAPI<T>(url: string, options: UseFetchOptions<T> = {}) {
     maxAge: 30 * 24 * 60 * 60,
   };
 
+  const baseURL = "";
+
   const defaults: UseFetchOptions<T> = {
-    baseURL: "/",
+    baseURL,
     key: url,
     server: false,
     retry: 1,
@@ -26,7 +28,7 @@ export function useAPI<T>(url: string, options: UseFetchOptions<T> = {}) {
     async onResponseError({ response }) {
       if (response.status === 401) {
         await useFetch('/api/auth/refresh', {
-          baseURL: "/",
+          baseURL,
           method: 'POST',
           server: false,
           credentials: 'include',
