@@ -6,8 +6,10 @@ export default defineNuxtPlugin(() => {
     maxAge: 30 * 24 * 60 * 60,
   };
 
+  const baseURL = "";
+
   const api = $fetch.create({
-    baseURL: '/',
+    baseURL,
     retry: 1,
     retryStatusCodes: [401],
     retryDelay: 500,
@@ -20,7 +22,7 @@ export default defineNuxtPlugin(() => {
     async onResponseError({ response }) {
       if (response.status === 401) {
         await useFetch('/api/auth/refresh', {
-          baseURL: "/",
+          baseURL,
           method: 'POST',
           server: false,
           credentials: 'include',
